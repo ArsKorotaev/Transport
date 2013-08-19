@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <GoogleMaps/GoogleMaps.h>
 
 @interface TPViewController : UIViewController
+{
+    GMSMapView *mapView;
+    __weak IBOutlet UIView *mapContainer;
+    
+    NSMutableDictionary *displayedObjects;
+    NSTimer *updateTimer;
+
+}
 
 @end
