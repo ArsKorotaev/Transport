@@ -28,20 +28,16 @@
 - (void) setupMapView
 {
 
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:-33.86
-                                                            longitude:151.20
-                                                                 zoom:6];
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:58.00
+                                                            longitude:56.22
+                                                                 zoom:10];
     mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
     mapView.myLocationEnabled = YES;
+    mapView.buildingsEnabled = NO;
+    mapView.settings.compassButton = YES;
     //self.view = mapView_;
     
-    // Creates a marker in the center of the map.
-    GMSMarker *marker = [[GMSMarker alloc] init];
-    marker.position = CLLocationCoordinate2DMake(-33.86, 151.20);
-    marker.title = @"Sydney";
-    marker.snippet = @"Australia";
-    marker.map = mapView;
-    
+    // Creates a marker in the center of the map.    
     [mapView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [mapContainer addSubview:mapView];
     
@@ -86,21 +82,29 @@
         NSArray *objects = [JSON objectForKey:@"autos"];
         
         for (NSDictionary *bus in objects) {
+            
+            GMSMarker *marker;
             NSDictionary *oldBus = [displayedObjects objectForKey:[bus objectForKey:@"gosNom"]];
+            
             if (!oldBus) {
-                GMSMarker *marker = [[GMSMarker alloc] init];
-                marker.position = CLLocationCoordinate2DMake([[bus objectForKey:@"n"] doubleValue], [[bus objectForKey:@"e"] doubleValue]);
-                marker.title = @"68";
+                marker = [[GMSMarker alloc] init];                
                 marker.map = mapView;
                 [displayedObjects setObject:marker forKey:[bus objectForKey:@"gosNom"]];
             }
             else
             {
-                GMSMarker *marker = (GMSMarker *)oldBus;
-                marker.position = CLLocationCoordinate2DMake([[bus objectForKey:@"n"] doubleValue], [[bus objectForKey:@"e"] doubleValue]);
-                marker.title = @"68";
-                marker.map = mapView;
+                marker = (GMSMarker *)oldBus;
             }
+            
+            @try {
+                marker.position = CLLocationCoordinate2DMake([[bus objectForKey:@"n"] doubleValue], [[bus objectForKey:@"e"] doubleValue]);
+                marker.title = [[bus objectForKey:@"gosNom"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            }
+            @catch (NSException *exception) {
+                NSLog(@"Ошибка обновления");
+            }
+            
+            
             
         }
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
