@@ -16,6 +16,8 @@
     
     NSMutableDictionary *displayedObjects;
     NSTimer *updateTimer;
+    
+    NSFetchedResultsController *fetchedResultsController;
 
 }
 @property NSManagedObjectContext *managedObjectContext;

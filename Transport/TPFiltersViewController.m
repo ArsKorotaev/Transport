@@ -141,6 +141,13 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     TPTransport *transport = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = transport.title;
+    if (transport.isSelected) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+    else
+    {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
     // Configure the cell...
     
     return cell;
@@ -196,6 +203,16 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+    
+    TPTransport *transport = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    if (transport.isSelected) {
+        transport.isSelected = NO;
+    }
+    else
+    {
+        transport.isSelected = YES;
+    }
 }
 
 - (IBAction)dismis:(id)sender {

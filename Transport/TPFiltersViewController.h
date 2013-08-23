@@ -10,7 +10,7 @@
 #import "BPCoreDataTableViewController.h"
 
 @interface TPFiltersViewController : BPCoreDataTableViewController
-@property NSManagedObjectContext *managedObjectContext;
+@property (nonatomic) NSManagedObjectContext *managedObjectContext;
 - (IBAction)dismis:(id)sender;
 
 @end

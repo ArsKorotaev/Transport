@@ -9,9 +9,11 @@
 #import "TPMapViewController.h"
 #import "AFJSONRequestOperation.h"
 #import "TPFiltersViewController.h"
+#import "TPTransport.h"
 
+#define ARC4RANDOM_MAX      0x100000000
 
-@interface TPMapViewController ()
+@interface TPMapViewController () <NSFetchedResultsControllerDelegate>
 
 @end
 
@@ -94,46 +96,62 @@
 - (void) updateAutos:(id) sender
 {
     NSAssert(mapView, @"Не инициализирована карта");
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://map.gptperm.ru/json/get-moving-autos/-68-"]];
     
-    AFJSONRequestOperation *op = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        //
-        NSArray *objects = [JSON objectForKey:@"autos"];
+    for (TPTransport *transport in fetchedResultsController.fetchedObjects) {
+        NSString *requestString = [NSString stringWithFormat:@"http://map.gptperm.ru/json/get-moving-autos/-%@-",transport.routeId];
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:requestString]];
         
-        for (NSDictionary *bus in objects) {
-            
-            GMSMarker *marker;
-            NSDictionary *oldBus = [displayedObjects objectForKey:[bus objectForKey:@"gosNom"]];
-            
-            if (!oldBus) {
-                marker = [[GMSMarker alloc] init];                
-                marker.map = mapView;
-                [displayedObjects setObject:marker forKey:[bus objectForKey:@"gosNom"]];
+        AFJSONRequestOperation *op = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            //
+            NSArray *objects = [JSON objectForKey:@"autos"];
+            UIColor *markerColor = [UIColor colorWithRed:((double)arc4random() / ARC4RANDOM_MAX)
+                                                   green:((double)arc4random() / ARC4RANDOM_MAX)
+                                                    blue:((double)arc4random() / ARC4RANDOM_MAX)
+                                                   alpha:1.0];
+            for (NSDictionary *bus in objects) {
+                
+                GMSMarker *marker;
+                NSDictionary *oldBus = [displayedObjects objectForKey:[bus objectForKey:@"gosNom"]];
+                
+                
+                
+                @try {
+                    
+                    if (!oldBus) {
+                        marker = [[GMSMarker alloc] init];
+                        marker.map = mapView;
+                        UIImage *icon =  [self courseImageWithAngle:[[bus objectForKey:@"course"] doubleValue] andColor:markerColor];
+                        marker.icon = icon;//[GMSMarker markerImageWithColor:markerColor];
+                        marker.groundAnchor = CGPointMake(0.5, 0.5);
+                        [displayedObjects setObject:marker forKey:[bus objectForKey:@"gosNom"]];
+                    }
+                    else
+                    {
+                        marker = (GMSMarker *)oldBus;
+                    }
+                    
+                    marker.position = CLLocationCoordinate2DMake([[bus objectForKey:@"n"] doubleValue], [[bus objectForKey:@"e"] doubleValue]);
+                    marker.title = [[bus objectForKey:@"gosNom"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                    
+                    
+                    
+                }
+                @catch (NSException *exception) {
+                    NSLog(@"Ошибка обновления");
+                }
+                
+                
+                
             }
-            else
-            {
-                marker = (GMSMarker *)oldBus;
-            }
-            
-            @try {
-                marker.position = CLLocationCoordinate2DMake([[bus objectForKey:@"n"] doubleValue], [[bus objectForKey:@"e"] doubleValue]);
-                marker.title = [[bus objectForKey:@"gosNom"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-               // UIImage *icon =  [self courseImageWithAngle:[[bus objectForKey:@"course"] doubleValue] andColor:[UIColor redColor]];
-               // marker.icon = icon;
-            }
-            @catch (NSException *exception) {
-                NSLog(@"Ошибка обновления");
-            }
-            
-            
-            
-        }
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        //
-    }];
+        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            //
+        }];
+        
+        
+        [op start];
+    }
     
 
-    [op start];
 }
 
 - (void)useDocument
@@ -166,7 +184,17 @@
 
 - (void) setupFetchedResultsController
 {
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"TPTransport"];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"type" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)],
+                                [NSSortDescriptor sortDescriptorWithKey:@"routeNumber" ascending:YES]];
+    request.predicate = [NSPredicate predicateWithFormat:@"isSelected == YES"];
     
+    fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                                        managedObjectContext:self.managedObjectContext
+                                                                          sectionNameKeyPath:nil
+                                                                                   cacheName:nil];
+    fetchedResultsController.delegate = self;
+    [fetchedResultsController performFetch:nil];
 }
 
 - (UIImage *) courseImageWithAngle:(double)angle andColor:(UIColor*) color
@@ -175,8 +203,8 @@
     
     
 
-	float width = 10;
-	float height = 10;
+	float width = 40.f;
+	float height = 40.f;
 	
     // Create a temporary texture data buffer
 	void *data = calloc(width * height , 8);
@@ -192,12 +220,26 @@
                                              colorSpace,
                                              kCGImageAlphaPremultipliedLast);
     
-
+    
+    CGContextTranslateCTM(context, width / 2.0, height / 2.0);
+    // Rotate:
+    CGContextRotateCTM(context, angle * M_PI / 180.f);
 
     //CGContextAddRect(context, CGRectMake(0, 0, 40, 40));
     CGContextSetFillColorWithColor(context, color.CGColor);
-    CGContextFillEllipseInRect(context, CGRectMake(0, 0, 2, 2));
-    //CGContextFillRect(context, CGRectMake(0, 0, 2, 2));
+    //CGContextFillEllipseInRect(context, CGRectMake(0, 0, 2, 2));
+    //CGContextFillRect(context, CGRectMake(0, 0, 10, 10));
+    
+    //Cnhtkrf
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathMoveToPoint(path, NULL,0, 0);
+    CGPathAddLineToPoint(path, NULL,5,20);
+    CGPathAddLineToPoint(path, NULL,10,0);
+    CGPathAddLineToPoint(path, NULL,0,0);
+    CGPathCloseSubpath(path);
+    
+    CGContextAddPath(context, path);
+    CGContextFillPath(context);
     
     
     // write it to a new image
@@ -212,4 +254,30 @@
 	return newImage;
 }
 
+#pragma mark - NSFetchedResultsControllerDelegate methods
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
+{
+    
+    switch(type)
+    {
+    case NSFetchedResultsChangeInsert:
+     //   [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self updateAutos:nil];
+        break;
+        
+    case NSFetchedResultsChangeDelete:
+      //  [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        break;
+        
+    case NSFetchedResultsChangeUpdate:
+    //    [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        break;
+        
+    case NSFetchedResultsChangeMove:
+     //   [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+     //   [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+        break;
+    }
+
+}
 @end
