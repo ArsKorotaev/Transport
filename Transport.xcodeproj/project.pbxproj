@@ -47,6 +47,11 @@
 		B51B033A17C20BC300A7B8B7 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = B51B032E17C20BC300A7B8B7 /* AFURLConnectionOperation.m */; };
 		B51B033B17C20BC300A7B8B7 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = B51B033017C20BC300A7B8B7 /* AFXMLRequestOperation.m */; };
 		B51B033C17C20BC300A7B8B7 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = B51B033217C20BC300A7B8B7 /* UIImageView+AFNetworking.m */; };
+		B52F812617C73B6500DF4462 /* TPTransportModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B52F812417C73B6500DF4462 /* TPTransportModel.xcdatamodeld */; };
+		B52F813617C74E6600DF4462 /* TPFiltersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B52F813517C74E6600DF4462 /* TPFiltersViewController.m */; };
+		B52F816B17C757E200DF4462 /* BPCoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B52F816917C757E200DF4462 /* BPCoreDataTableViewController.m */; };
+		B52F816E17C75B3400DF4462 /* TPTransport+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = B52F816D17C75B3400DF4462 /* TPTransport+Create.m */; };
+		B52F817117C7624800DF4462 /* TPTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = B52F817017C7624800DF4462 /* TPTransport.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,7 +101,7 @@
 		8C8812A617BFD07800155AC4 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		8C8812A717BFD07800155AC4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8C8812A817BFD07800155AC4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		8C8812B517BFD3FA00155AC4 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
+		8C8812B517BFD3FA00155AC4 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = ../GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		B51B032017C20BC300A7B8B7 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		B51B032117C20BC300A7B8B7 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		B51B032217C20BC300A7B8B7 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -116,6 +121,15 @@
 		B51B033017C20BC300A7B8B7 /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFXMLRequestOperation.m; sourceTree = "<group>"; };
 		B51B033117C20BC300A7B8B7 /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		B51B033217C20BC300A7B8B7 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
+		B52F812517C73B6500DF4462 /* TPTransportModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TPTransportModel.xcdatamodel; sourceTree = "<group>"; };
+		B52F813417C74E6600DF4462 /* TPFiltersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPFiltersViewController.h; sourceTree = "<group>"; };
+		B52F813517C74E6600DF4462 /* TPFiltersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPFiltersViewController.m; sourceTree = "<group>"; };
+		B52F816917C757E200DF4462 /* BPCoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCoreDataTableViewController.m; sourceTree = "<group>"; };
+		B52F816A17C757E200DF4462 /* BPCoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCoreDataTableViewController.h; sourceTree = "<group>"; };
+		B52F816C17C75B3400DF4462 /* TPTransport+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TPTransport+Create.h"; sourceTree = "<group>"; };
+		B52F816D17C75B3400DF4462 /* TPTransport+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TPTransport+Create.m"; sourceTree = "<group>"; };
+		B52F816F17C7624800DF4462 /* TPTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPTransport.h; sourceTree = "<group>"; };
+		B52F817017C7624800DF4462 /* TPTransport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPTransport.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,8 +137,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C8812A917BFD07800155AC4 /* AVFoundation.framework in Frameworks */,
 				8C8812AA17BFD07800155AC4 /* CoreData.framework in Frameworks */,
+				8C8812A917BFD07800155AC4 /* AVFoundation.framework in Frameworks */,
 				8C8812AB17BFD07800155AC4 /* CoreLocation.framework in Frameworks */,
 				8C8812AC17BFD07800155AC4 /* CoreText.framework in Frameworks */,
 				8C8812AD17BFD07800155AC4 /* GLKit.framework in Frameworks */,
@@ -158,7 +172,6 @@
 		8C88125117BFCF1D00155AC4 = {
 			isa = PBXGroup;
 			children = (
-				8C8812B517BFD3FA00155AC4 /* GoogleMaps.bundle */,
 				8C88126317BFCF1D00155AC4 /* Transport */,
 				8C88128A17BFCF1D00155AC4 /* TransportTests */,
 				8C88125C17BFCF1D00155AC4 /* Frameworks */,
@@ -202,13 +215,13 @@
 		8C88126317BFCF1D00155AC4 /* Transport */ = {
 			isa = PBXGroup;
 			children = (
+				B52F813017C7453C00DF4462 /* ViewControllers */,
+				B52F812317C73AF000DF4462 /* Models */,
 				8C8812B717BFD58000155AC4 /* Libs */,
 				8C88126C17BFCF1D00155AC4 /* TPAppDelegate.h */,
 				8C88126D17BFCF1D00155AC4 /* TPAppDelegate.m */,
 				8C88127517BFCF1D00155AC4 /* MainStoryboard_iPhone.storyboard */,
 				8C88127817BFCF1D00155AC4 /* MainStoryboard_iPad.storyboard */,
-				8C88127B17BFCF1D00155AC4 /* TPMapViewController.h */,
-				8C88127C17BFCF1D00155AC4 /* TPMapViewController.m */,
 				8C88126417BFCF1D00155AC4 /* Supporting Files */,
 			);
 			path = Transport;
@@ -217,6 +230,7 @@
 		8C88126417BFCF1D00155AC4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8C8812B517BFD3FA00155AC4 /* GoogleMaps.bundle */,
 				8C88126517BFCF1D00155AC4 /* Transport-Info.plist */,
 				8C88126617BFCF1D00155AC4 /* InfoPlist.strings */,
 				8C88126917BFCF1D00155AC4 /* main.m */,
@@ -281,6 +295,31 @@
 			name = AFNetworking;
 			path = "/Users/multilab/Проекты/ios-production/Maugry-iOS-v1/AFNetworking";
 			sourceTree = "<absolute>";
+		};
+		B52F812317C73AF000DF4462 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B52F816F17C7624800DF4462 /* TPTransport.h */,
+				B52F817017C7624800DF4462 /* TPTransport.m */,
+				B52F812417C73B6500DF4462 /* TPTransportModel.xcdatamodeld */,
+				B52F816C17C75B3400DF4462 /* TPTransport+Create.h */,
+				B52F816D17C75B3400DF4462 /* TPTransport+Create.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		B52F813017C7453C00DF4462 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B52F816A17C757E200DF4462 /* BPCoreDataTableViewController.h */,
+				B52F816917C757E200DF4462 /* BPCoreDataTableViewController.m */,
+				8C88127B17BFCF1D00155AC4 /* TPMapViewController.h */,
+				8C88127C17BFCF1D00155AC4 /* TPMapViewController.m */,
+				B52F813417C74E6600DF4462 /* TPFiltersViewController.h */,
+				B52F813517C74E6600DF4462 /* TPFiltersViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -407,6 +446,11 @@
 				B51B033A17C20BC300A7B8B7 /* AFURLConnectionOperation.m in Sources */,
 				B51B033B17C20BC300A7B8B7 /* AFXMLRequestOperation.m in Sources */,
 				B51B033C17C20BC300A7B8B7 /* UIImageView+AFNetworking.m in Sources */,
+				B52F812617C73B6500DF4462 /* TPTransportModel.xcdatamodeld in Sources */,
+				B52F813617C74E6600DF4462 /* TPFiltersViewController.m in Sources */,
+				B52F816B17C757E200DF4462 /* BPCoreDataTableViewController.m in Sources */,
+				B52F816E17C75B3400DF4462 /* TPTransport+Create.m in Sources */,
+				B52F817117C7624800DF4462 /* TPTransport.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -621,6 +665,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B52F812417C73B6500DF4462 /* TPTransportModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B52F812517C73B6500DF4462 /* TPTransportModel.xcdatamodel */,
+			);
+			currentVersion = B52F812517C73B6500DF4462 /* TPTransportModel.xcdatamodel */;
+			path = TPTransportModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 8C88125217BFCF1D00155AC4 /* Project object */;
 }

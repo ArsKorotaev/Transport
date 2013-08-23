@@ -8,6 +8,7 @@
 
 #import "TPMapViewController.h"
 #import "AFJSONRequestOperation.h"
+#import "TPFiltersViewController.h"
 
 
 @interface TPMapViewController ()
@@ -51,6 +52,14 @@
     [mapContainer addConstraints:constraintsVertical];
     [mapContainer addConstraints:constraintsHorizontal];
 }
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if (!self.managedObjectContext) {
+        [self useDocument];
+    }
+}
 
 - (void) viewDidAppear:(BOOL)animated
 {
@@ -72,6 +81,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"ShowFilterView"]) {
+        UINavigationController *nav = segue.destinationViewController;
+        TPFiltersViewController *fvc = [nav.childViewControllers lastObject];
+        
+        fvc.managedObjectContext = _managedObjectContext;
+    }
+    
+}
 - (void) updateAutos:(id) sender
 {
     NSAssert(mapView, @"Не инициализирована карта");
@@ -117,6 +136,38 @@
     [op start];
 }
 
+- (void)useDocument
+{
+    NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    url = [url URLByAppendingPathComponent:@"base.sqlite"];
+    UIManagedDocument *document = [[UIManagedDocument alloc] initWithFileURL:url];
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[url path]]) {
+        [document saveToURL:url
+           forSaveOperation:UIDocumentSaveForCreating
+          completionHandler:^(BOOL success) {
+              if (success) {
+                  self.managedObjectContext = document.managedObjectContext;
+                  [self setupFetchedResultsController];
+              }
+          }];
+    } else if (document.documentState == UIDocumentStateClosed) {
+        [document openWithCompletionHandler:^(BOOL success) {
+            if (success) {
+                self.managedObjectContext = document.managedObjectContext;
+                [self setupFetchedResultsController];
+            }
+        }];
+    } else {
+        self.managedObjectContext = document.managedObjectContext;
+        [self setupFetchedResultsController];
+    }
+}
+
+- (void) setupFetchedResultsController
+{
+    
+}
 
 - (UIImage *) courseImageWithAngle:(double)angle andColor:(UIColor*) color
 {

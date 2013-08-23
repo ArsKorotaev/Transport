@@ -18,5 +18,5 @@
     NSTimer *updateTimer;
 
 }
-
+@property NSManagedObjectContext *managedObjectContext;
 @end
