@@ -18,7 +18,7 @@
 		8C88127417BFCF1D00155AC4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C88127317BFCF1D00155AC4 /* Default-568h@2x.png */; };
 		8C88127717BFCF1D00155AC4 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C88127517BFCF1D00155AC4 /* MainStoryboard_iPhone.storyboard */; };
 		8C88127A17BFCF1D00155AC4 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C88127817BFCF1D00155AC4 /* MainStoryboard_iPad.storyboard */; };
-		8C88127D17BFCF1D00155AC4 /* TPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C88127C17BFCF1D00155AC4 /* TPViewController.m */; };
+		8C88127D17BFCF1D00155AC4 /* TPMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C88127C17BFCF1D00155AC4 /* TPMapViewController.m */; };
 		8C88128517BFCF1D00155AC4 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C88128417BFCF1D00155AC4 /* SenTestingKit.framework */; };
 		8C88128617BFCF1D00155AC4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C88125D17BFCF1D00155AC4 /* UIKit.framework */; };
 		8C88128717BFCF1D00155AC4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C88125F17BFCF1D00155AC4 /* Foundation.framework */; };
@@ -75,8 +75,8 @@
 		8C88127317BFCF1D00155AC4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		8C88127617BFCF1D00155AC4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		8C88127917BFCF1D00155AC4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
-		8C88127B17BFCF1D00155AC4 /* TPViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TPViewController.h; sourceTree = "<group>"; };
-		8C88127C17BFCF1D00155AC4 /* TPViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TPViewController.m; sourceTree = "<group>"; };
+		8C88127B17BFCF1D00155AC4 /* TPMapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TPMapViewController.h; sourceTree = "<group>"; };
+		8C88127C17BFCF1D00155AC4 /* TPMapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TPMapViewController.m; sourceTree = "<group>"; };
 		8C88128317BFCF1D00155AC4 /* TransportTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransportTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C88128417BFCF1D00155AC4 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		8C88128C17BFCF1D00155AC4 /* TransportTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TransportTests-Info.plist"; sourceTree = "<group>"; };
@@ -207,8 +207,8 @@
 				8C88126D17BFCF1D00155AC4 /* TPAppDelegate.m */,
 				8C88127517BFCF1D00155AC4 /* MainStoryboard_iPhone.storyboard */,
 				8C88127817BFCF1D00155AC4 /* MainStoryboard_iPad.storyboard */,
-				8C88127B17BFCF1D00155AC4 /* TPViewController.h */,
-				8C88127C17BFCF1D00155AC4 /* TPViewController.m */,
+				8C88127B17BFCF1D00155AC4 /* TPMapViewController.h */,
+				8C88127C17BFCF1D00155AC4 /* TPMapViewController.m */,
 				8C88126417BFCF1D00155AC4 /* Supporting Files */,
 			);
 			path = Transport;
@@ -397,7 +397,7 @@
 			files = (
 				8C88126A17BFCF1D00155AC4 /* main.m in Sources */,
 				8C88126E17BFCF1D00155AC4 /* TPAppDelegate.m in Sources */,
-				8C88127D17BFCF1D00155AC4 /* TPViewController.m in Sources */,
+				8C88127D17BFCF1D00155AC4 /* TPMapViewController.m in Sources */,
 				B51B033417C20BC300A7B8B7 /* AFHTTPClient.m in Sources */,
 				B51B033517C20BC300A7B8B7 /* AFHTTPRequestOperation.m in Sources */,
 				B51B033617C20BC300A7B8B7 /* AFImageRequestOperation.m in Sources */,

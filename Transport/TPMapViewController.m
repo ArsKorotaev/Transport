@@ -6,15 +6,15 @@
 //  Copyright (c) 2013 Арсений Коротаев. All rights reserved.
 //
 
-#import "TPViewController.h"
+#import "TPMapViewController.h"
 #import "AFJSONRequestOperation.h"
 
 
-@interface TPViewController ()
+@interface TPMapViewController ()
 
 @end
 
-@implementation TPViewController
+@implementation TPMapViewController
 
 
 - (void)viewDidLoad
@@ -34,7 +34,7 @@
     mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
     mapView.myLocationEnabled = YES;
     mapView.buildingsEnabled = NO;
-    mapView.settings.compassButton = YES;
+    mapView.settings.rotateGestures = NO;
     //self.view = mapView_;
     
     // Creates a marker in the center of the map.    
@@ -55,7 +55,7 @@
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    updateTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(updateAutos:) userInfo:nil repeats:YES];
+    updateTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(updateAutos:) userInfo:nil repeats:YES];
     
 }
 
@@ -99,6 +99,8 @@
             @try {
                 marker.position = CLLocationCoordinate2DMake([[bus objectForKey:@"n"] doubleValue], [[bus objectForKey:@"e"] doubleValue]);
                 marker.title = [[bus objectForKey:@"gosNom"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+               // UIImage *icon =  [self courseImageWithAngle:[[bus objectForKey:@"course"] doubleValue] andColor:[UIColor redColor]];
+               // marker.icon = icon;
             }
             @catch (NSException *exception) {
                 NSLog(@"Ошибка обновления");
@@ -111,8 +113,52 @@
         //
     }];
     
-    
+
     [op start];
+}
+
+
+- (UIImage *) courseImageWithAngle:(double)angle andColor:(UIColor*) color
+{
+    
+    
+    
+
+	float width = 10;
+	float height = 10;
+	
+    // Create a temporary texture data buffer
+	void *data = calloc(width * height , 8);
+    
+	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    
+	// Draw image to buffer
+	CGContextRef context = CGBitmapContextCreate(data,
+                                             width,
+                                             height,
+                                             8,
+                                             width * 8,
+                                             colorSpace,
+                                             kCGImageAlphaPremultipliedLast);
+    
+
+
+    //CGContextAddRect(context, CGRectMake(0, 0, 40, 40));
+    CGContextSetFillColorWithColor(context, color.CGColor);
+    CGContextFillEllipseInRect(context, CGRectMake(0, 0, 2, 2));
+    //CGContextFillRect(context, CGRectMake(0, 0, 2, 2));
+    
+    
+    // write it to a new image
+	CGImageRef cgimage = CGBitmapContextCreateImage(context);
+	UIImage *newImage = [UIImage imageWithCGImage:cgimage];
+    
+	CFRelease(cgimage);
+	CGContextRelease(context);
+    CGColorSpaceRelease(colorSpace);
+	
+    // auto-released
+	return newImage;
 }
 
 @end

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <GoogleMaps/GoogleMaps.h>
 
-@interface TPViewController : UIViewController
+@interface TPMapViewController : UIViewController
 {
     GMSMapView *mapView;
     __weak IBOutlet UIView *mapContainer;
