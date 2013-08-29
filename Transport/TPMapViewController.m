@@ -104,6 +104,7 @@
         AFJSONRequestOperation *op = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
             //
             NSArray *objects = [JSON objectForKey:@"autos"];
+            
             UIColor *markerColor = [UIColor colorWithRed:((double)arc4random() / ARC4RANDOM_MAX)
                                                    green:((double)arc4random() / ARC4RANDOM_MAX)
                                                     blue:((double)arc4random() / ARC4RANDOM_MAX)
@@ -130,13 +131,17 @@
                         marker = (GMSMarker *)oldBus;
                     }
                     
+                    UIImage *icon =  [self courseImageWithAngle:[[bus objectForKey:@"course"] doubleValue] andColor:markerColor];
+                    marker.icon = icon;//[GMSMarker markerImageWithColor:markerColor];
+                    
                     marker.position = CLLocationCoordinate2DMake([[bus objectForKey:@"n"] doubleValue], [[bus objectForKey:@"e"] doubleValue]);
                     marker.title = [[bus objectForKey:@"gosNom"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                     
-                    
+                   // NSLog(@"Gos nomer: %@. Rotation: %@", [bus objectForKey:@"gosNom"], [bus objectForKey:@"course"]);
                     
                 }
                 @catch (NSException *exception) {
+                    marker.map = nil;
                     NSLog(@"Ошибка обновления");
                 }
                 
@@ -168,6 +173,10 @@
                   self.managedObjectContext = document.managedObjectContext;
                   [self setupFetchedResultsController];
               }
+              else
+              {
+                  NSLog(@"Can't save");
+              }
           }];
     } else if (document.documentState == UIDocumentStateClosed) {
         [document openWithCompletionHandler:^(BOOL success) {
@@ -180,6 +189,8 @@
         self.managedObjectContext = document.managedObjectContext;
         [self setupFetchedResultsController];
     }
+    
+
 }
 
 - (void) setupFetchedResultsController
@@ -221,9 +232,13 @@
                                              kCGImageAlphaPremultipliedLast);
     
     
-    CGContextTranslateCTM(context, width / 2.0, height / 2.0);
-    // Rotate:
-    CGContextRotateCTM(context, angle * M_PI / 180.f);
+    
+    CGAffineTransform transform = CGAffineTransformMakeTranslation(width / 2.0, height / 2.0);
+    transform = CGAffineTransformRotate(transform,  - (angle * M_PI / 180.f));
+    
+    transform = CGAffineTransformTranslate(transform, -width / 2.0, -height / 2.0);
+    
+    CGContextConcatCTM(context, transform);
 
     //CGContextAddRect(context, CGRectMake(0, 0, 40, 40));
     CGContextSetFillColorWithColor(context, color.CGColor);
@@ -232,10 +247,10 @@
     
     //Cnhtkrf
     CGMutablePathRef path = CGPathCreateMutable();
-    CGPathMoveToPoint(path, NULL,0, 0);
-    CGPathAddLineToPoint(path, NULL,5,20);
-    CGPathAddLineToPoint(path, NULL,10,0);
-    CGPathAddLineToPoint(path, NULL,0,0);
+    CGPathMoveToPoint(path, NULL,15,10);
+    CGPathAddLineToPoint(path, NULL,20,30);
+    CGPathAddLineToPoint(path, NULL,25,10);
+    CGPathAddLineToPoint(path, NULL,15,10);
     CGPathCloseSubpath(path);
     
     CGContextAddPath(context, path);

@@ -91,6 +91,12 @@
                 
             }
         }
+        NSError *error;
+        [_managedObjectContext save:&error];
+        
+        if (error) {
+            NSLog(@"%@", error.description);
+        }
         [self.refreshControl endRefreshing];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         //
