@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <GoogleMaps/GoogleMaps.h>
 
+/**
+ @class TPMapViewController - гугл карта для отображения транспорта
+ */
 @interface TPMapViewController : UIViewController
 {
     GMSMapView *mapView;

@@ -93,6 +93,12 @@
     }
     
 }
+
+/**
+ *  Обновить транспорт на карте
+ *
+ *  @param sender <#sender description#>
+ */
 - (void) updateAutos:(id) sender
 {
     NSAssert(mapView, @"Не инициализирована карта");
@@ -101,6 +107,7 @@
         NSString *requestString = [NSString stringWithFormat:@"http://map.gptperm.ru/json/get-moving-autos/-%@-",transport.routeId];
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:requestString]];
         
+        //Запрашиваем обновленную позицию для каждого маршрута
         AFJSONRequestOperation *op = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
             //
             NSArray *objects = [JSON objectForKey:@"autos"];
@@ -208,6 +215,14 @@
     [fetchedResultsController performFetch:nil];
 }
 
+/**
+ *  Создает треугольник транспорта
+ *
+ *  @param angle угол поворота
+ *  @param color цвет треугольника
+ *
+ *  @return <#return value description#>
+ */
 - (UIImage *) courseImageWithAngle:(double)angle andColor:(UIColor*) color
 {
     
